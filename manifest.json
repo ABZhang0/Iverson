@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "Iverson",
+  "description": "NBA player stats highlight lookup",
+  "version": "1.0",
+  "browser_action": {         
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://stats.nba.com/"
+  ]
+}
