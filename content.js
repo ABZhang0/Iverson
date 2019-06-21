@@ -39,9 +39,9 @@ function formatStats(stats) {
   statsMap.set('age', stats[5]);
   statsMap.set('gp', stats[6]);
   statsMap.set('gs', stats[7]);
-  statsMap.set('min', stats[8]);
-  statsMap.set('fgm', stats[9]);
-  statsMap.set('fga', stats[10]);
+  statsMap.set('min', stats[8].toFixed(1));
+  statsMap.set('fgm', stats[9].toFixed(1));
+  statsMap.set('fga', stats[10].toFixed(1));
   statsMap.set('fgPct', stats[11]);
   statsMap.set('fg3m', stats[12]);
   statsMap.set('fg3a', stats[13]);
@@ -49,22 +49,23 @@ function formatStats(stats) {
   statsMap.set('ftm', stats[15]);
   statsMap.set('fta', stats[16]);
   statsMap.set('ftPct', stats[17]);
-  statsMap.set('oreb', stats[18]);
-  statsMap.set('dreb', stats[19]);
-  statsMap.set('reb', stats[20]);
-  statsMap.set('ast', stats[21]);
-  statsMap.set('stl', stats[22]);
-  statsMap.set('blk', stats[23]);
-  statsMap.set('tov', stats[24]);
-  statsMap.set('pf', stats[25]);
-  statsMap.set('pts', stats[26]);
+  statsMap.set('oreb', stats[18].toFixed(1));
+  statsMap.set('dreb', stats[19].toFixed(1));
+  statsMap.set('reb', stats[20].toFixed(1));
+  statsMap.set('ast', stats[21].toFixed(1));
+  statsMap.set('stl', stats[22].toFixed(1));
+  statsMap.set('blk', stats[23].toFixed(1));
+  statsMap.set('tov', stats[24].toFixed(1));
+  statsMap.set('pf', stats[25].toFixed(1));
+  statsMap.set('pts', stats[26].toFixed(1));
   return statsMap;
 }
 
 function renderOverlay(mouseX, mouseY, statsMap) {
   statsTable.innerHTML = ""; // clear previous data
-  
+
   var headers = statsTable.insertRow(0);
+  headers.setAttribute('class', 'headers');
   var ptsHeader = headers.insertCell(0);
   ptsHeader.innerHTML = 'PTS';
   var rebHeader = headers.insertCell(1);
