@@ -58,7 +58,12 @@ function formatStats(stats) {
   statsMap.set('tov', stats[24].toFixed(1));
   statsMap.set('pf', stats[25].toFixed(1));
   statsMap.set('pts', stats[26].toFixed(1));
+  statsMap.set('efgPct', efgCalc(statsMap.get('fgm'), statsMap.get('fg3m'), statsMap.get('fga')).toFixed(3));
   return statsMap;
+}
+
+function efgCalc(fgm, fg3m, fga) {
+  return ((fgm - fg3m) + (1.5 * fg3m)) / fga;
 }
 
 function renderOverlay(mouseX, mouseY, statsMap) {
@@ -84,6 +89,8 @@ function renderOverlay(mouseX, mouseY, statsMap) {
   fg3PctHeader.innerHTML = '3P%';
   var ftPctHeader = headers.insertCell(8);
   ftPctHeader.innerHTML = 'FT%';
+  var efgPctHeader = headers.insertCell(9);
+  efgPctHeader.innerHTML = 'eFG%';
 
   var cells = statsTable.insertRow(1);
   var ptsCell = cells.insertCell(0);
@@ -104,6 +111,8 @@ function renderOverlay(mouseX, mouseY, statsMap) {
   fg3PctCell.innerHTML = statsMap.get('fg3Pct');
   var ftPctCell = cells.insertCell(8);
   ftPctCell.innerHTML = statsMap.get('ftPct');
+  var efgPctCell = cells.insertCell(9);
+  efgPctCell.innerHTML = statsMap.get('efgPct');
 
   overlayDOM.style.top = (mouseY - 30) + 'px'; // hardcode estimate
   overlayDOM.style.left = mouseX + 'px';
