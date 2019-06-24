@@ -22,6 +22,7 @@ function getSelectionText() {
 
 function playerLookup(e) {
   var playerName = getSelectionText();
+  playerName = playerName.replace(/(^[:,\s]+)|([:,\s]+$)/g, ""); // trim commas/colons/whitespace
   if (playerName) {
     console.log(playerName);
     chrome.runtime.sendMessage({senderMessage: playerName}, function(response) {
