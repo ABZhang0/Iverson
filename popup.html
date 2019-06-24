@@ -6,7 +6,41 @@
   </head>
   <body>
     <div class="container">
-      <h1>Iverson</h1>
+      <div class="introduction">
+        <h1 class="name">
+          <a href="https://github.com/ABZhang0/Iverson/" target="_blank">Iverson</a>
+          <p class="version">1.0.0</p>
+        </h1>
+        <label class="master_switch">
+          <input type="checkbox">
+          <span class="master_slider"></span>
+        </label>
+      </div>
     </div>
+
+    <table class="options_table">
+      <tbody>
+        <tr>
+          <td>Theme</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+            <td>Advanced Stats</td>
+            <td>
+              <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </td>
+          </tr>
+      </tbody>
+    </table>
   </body>
+
+  <script src="popup.js">findAndSetVersion();</script>
 </html>
