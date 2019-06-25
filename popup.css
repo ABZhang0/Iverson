@@ -3,6 +3,11 @@
   src: url(/fonts/sixers.ttf);
 }
 
+html, body {
+  -webkit-transition: .4s;
+  transition: 0.4s;
+}
+
 .container {
   user-select: none;
 }

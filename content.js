@@ -68,52 +68,52 @@ function efgCalc(fgm, fg3m, fga) {
 }
 
 function renderOverlay(mouseX, mouseY, statsMap) {
-  statsTable.innerHTML = ""; // clear previous data
+  statsTable.textContent = ""; // clear previous data
 
   var headers = statsTable.insertRow(0);
   headers.setAttribute('class', 'headers');
   var ptsHeader = headers.insertCell(0);
-  ptsHeader.innerHTML = 'PTS';
+  ptsHeader.textContent = 'PTS';
   var rebHeader = headers.insertCell(1);
-  rebHeader.innerHTML = 'REB';
+  rebHeader.textContent = 'REB';
   var astHeader = headers.insertCell(2);
-  astHeader.innerHTML = 'AST';
+  astHeader.textContent = 'AST';
   var stlHeader = headers.insertCell(3);
-  stlHeader.innerHTML = 'STL';
+  stlHeader.textContent = 'STL';
   var blkHeader = headers.insertCell(4);
-  blkHeader.innerHTML = 'BLK';
+  blkHeader.textContent = 'BLK';
   var tovHeader = headers.insertCell(5);
-  tovHeader.innerHTML = 'TOV';
+  tovHeader.textContent = 'TOV';
   var fgPctHeader = headers.insertCell(6);
-  fgPctHeader.innerHTML = 'FG%';
+  fgPctHeader.textContent = 'FG%';
   var fg3PctHeader = headers.insertCell(7);
-  fg3PctHeader.innerHTML = '3P%';
+  fg3PctHeader.textContent = '3P%';
   var ftPctHeader = headers.insertCell(8);
-  ftPctHeader.innerHTML = 'FT%';
+  ftPctHeader.textContent = 'FT%';
   var efgPctHeader = headers.insertCell(9);
-  efgPctHeader.innerHTML = 'eFG%';
+  efgPctHeader.textContent = 'eFG%';
 
   var cells = statsTable.insertRow(1);
   var ptsCell = cells.insertCell(0);
-  ptsCell.innerHTML = statsMap.get('pts');
+  ptsCell.textContent = statsMap.get('pts');
   var rebCell = cells.insertCell(1);
-  rebCell.innerHTML = statsMap.get('reb');
+  rebCell.textContent = statsMap.get('reb');
   var astCell = cells.insertCell(2);
-  astCell.innerHTML = statsMap.get('ast');
+  astCell.textContent = statsMap.get('ast');
   var stlCell = cells.insertCell(3);
-  stlCell.innerHTML = statsMap.get('stl');
+  stlCell.textContent = statsMap.get('stl');
   var blkCell = cells.insertCell(4);
-  blkCell.innerHTML = statsMap.get('blk');
+  blkCell.textContent = statsMap.get('blk');
   var tovCell = cells.insertCell(5);
-  tovCell.innerHTML = statsMap.get('tov');
+  tovCell.textContent = statsMap.get('tov');
   var fgPctCell = cells.insertCell(6);
-  fgPctCell.innerHTML = statsMap.get('fgPct');
+  fgPctCell.textContent = statsMap.get('fgPct');
   var fg3PctCell = cells.insertCell(7);
-  fg3PctCell.innerHTML = statsMap.get('fg3Pct');
+  fg3PctCell.textContent = statsMap.get('fg3Pct');
   var ftPctCell = cells.insertCell(8);
-  ftPctCell.innerHTML = statsMap.get('ftPct');
+  ftPctCell.textContent = statsMap.get('ftPct');
   var efgPctCell = cells.insertCell(9);
-  efgPctCell.innerHTML = statsMap.get('efgPct');
+  efgPctCell.textContent = statsMap.get('efgPct');
 
   overlayDOM.style.top = (mouseY - 30) + 'px'; // hardcode estimate
   overlayDOM.style.left = mouseX + 'px';

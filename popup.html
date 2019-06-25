@@ -9,7 +9,7 @@
       <div class="introduction">
         <h1 class="name">
           <a href="https://github.com/ABZhang0/Iverson/" target="_blank">Iverson</a>
-          <p class="version">1.0.0</p>
+          <p id="versionText" class="version"></p>
         </h1>
         <label class="master_switch">
           <input type="checkbox">
@@ -24,23 +24,23 @@
           <td>Theme</td>
           <td>
             <label class="switch">
-              <input type="checkbox">
+              <input type="checkbox" id="themeSelect">
               <span class="slider"></span>
             </label>
           </td>
         </tr>
         <tr>
-            <td>Advanced Stats</td>
-            <td>
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </td>
-          </tr>
+          <td>Advanced Stats</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
       </tbody>
     </table>
-  </body>
 
-  <script src="popup.js">findAndSetVersion();</script>
+    <script type="text/javascript" src="popup.js"></script>
+  </body>
 </html>

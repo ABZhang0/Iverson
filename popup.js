@@ -1,5 +1,16 @@
+window.addEventListener('load', findAndSetVersion);
+
 function findAndSetVersion() {
-  console.log('test');
-  console.log(chrome.runtime.getManifest().version);
-  document.getElementById("version").innerHTML = chrome.runtime.getManifest().version;
+  document.getElementById("versionText").textContent = chrome.runtime.getManifest().version;
+}
+
+var themeSelect = document.getElementById("themeSelect");
+themeSelect.addEventListener('click', () => { switchTheme(themeSelect) });
+
+function switchTheme(themeSelect) {
+  if (themeSelect.checked) {
+    document.body.style.backgroundColor = "#202020";
+  } else {
+    document.body.style.backgroundColor = "#FFFFFF";
+  }
 }
