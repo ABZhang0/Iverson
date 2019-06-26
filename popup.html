@@ -8,17 +8,17 @@
     <div class="container">
       <div class="introduction">
         <h1 class="name">
-          <a href="https://github.com/ABZhang0/Iverson/" target="_blank">Iverson</a>
+          <a id="titleLink" href="https://github.com/ABZhang0/Iverson/" target="_blank">Iverson</a>
           <p id="versionText" class="version"></p>
         </h1>
         <label class="master_switch">
-          <input type="checkbox">
+          <input type="checkbox" id="powerSwitch">
           <span class="master_slider"></span>
         </label>
       </div>
     </div>
 
-    <table class="options_table">
+    <table id="optionsTable" class="options_table">
       <tbody>
         <tr>
           <td>Theme</td>
@@ -30,10 +30,28 @@
           </td>
         </tr>
         <tr>
-          <td>Advanced Stats</td>
+          <td>Shooting Splits</td>
           <td>
             <label class="switch">
-              <input type="checkbox">
+              <input type="checkbox" id="splitsSelect">
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>eFG%</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox" id="efgSelect">
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>TS%</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox" id="tsSelect">
               <span class="slider"></span>
             </label>
           </td>

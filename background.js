@@ -1,3 +1,10 @@
+chrome.runtime.onInstalled.addListener(
+  function() {
+    chrome.storage.local.set({ powerOn: true });
+    chrome.storage.local.set({ darkMode: true });
+  }
+)
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.senderMessage == "getAllPlayersData") {
@@ -24,7 +31,7 @@ function getAllPlayers(callback) {
         mappedPlayers[jsonPlayer[2]] = jsonPlayer[0];
       })
       console.log(mappedPlayers);
-      chrome.storage.local.set({key: mappedPlayers}, function() {
+      chrome.storage.local.set({ activePlayers: mappedPlayers }, function() {
 				console.log("commonallplayers data saved");
 				callback();
       });
@@ -35,8 +42,8 @@ function getAllPlayers(callback) {
 }
 
 function getPlayerStats(playerName, callback) {
-  chrome.storage.local.get(['key'], function(result) {
-    var playerID = result.key[playerName];
+  chrome.storage.local.get(["activePlayers"], function(result) {
+    var playerID = result.activePlayers[playerName];
     if (!playerID) {
       console.log("invalid player name");
       return;
