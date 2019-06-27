@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(
   function() {
     chrome.storage.local.set({ powerOn: true });
     chrome.storage.local.set({ darkMode: true });
+    chrome.storage.local.set({ gameMinOn: false });
     chrome.storage.local.set({ splitsOn: false });
     chrome.storage.local.set({ efgPctOn: false });
     chrome.storage.local.set({ tsPctOn: false });

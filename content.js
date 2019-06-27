@@ -84,82 +84,104 @@ function renderOverlay(mouseX, mouseY, statsMap) {
   headers.setAttribute("class", "headers");
   var cells = statsTable.insertRow(1);
 
-  var ptsHeader = headers.insertCell(index);
-  ptsHeader.textContent = "PTS";
-  var ptsCell = cells.insertCell(index);
-  ptsCell.textContent = statsMap.get("pts").toFixed(1);
-  index++;
-
-  var rebHeader = headers.insertCell(index);
-  rebHeader.textContent = "REB";
-  var rebCell = cells.insertCell(index);
-  rebCell.textContent = statsMap.get("reb").toFixed(1);
-  index++;
-
-  var astHeader = headers.insertCell(index);
-  astHeader.textContent = "AST";
-  var astCell = cells.insertCell(index);
-  astCell.textContent = statsMap.get("ast").toFixed(1);
-  index++;
-
-  var stlHeader = headers.insertCell(index);
-  stlHeader.textContent = "STL";
-  var stlCell = cells.insertCell(index);
-  stlCell.textContent = statsMap.get("stl").toFixed(1);
-  index++;
-
-  var blkHeader = headers.insertCell(index);
-  blkHeader.textContent = "BLK";
-  var blkCell = cells.insertCell(index);
-  blkCell.textContent = statsMap.get("blk").toFixed(1);
-  index++;
-
-  var tovHeader = headers.insertCell(index);
-  tovHeader.textContent = "TOV";
-  var tovCell = cells.insertCell(index);
-  tovCell.textContent = statsMap.get("tov").toFixed(1);
-  index++;
-
-  chrome.storage.local.get(["splitsOn"], (result) => {
-    if (result.splitsOn) {
-      var fgPctHeader = headers.insertCell(index);
-      fgPctHeader.textContent = "FG%";
-      var fgPctCell = cells.insertCell(index);
-      fgPctCell.textContent = statsMap.get("fgPct").toFixed(3);
+  chrome.storage.local.get(["gameMinOn"], (result) => {
+    if (result.gameMinOn) {
+      var gpHeader = headers.insertCell(index);
+      gpHeader.textContent = "GP";
+      var gpCell = cells.insertCell(index);
+      gpCell.textContent = statsMap.get("gp").toFixed(0);
       index++;
 
-      var fg3PctHeader = headers.insertCell(index);
-      fg3PctHeader.textContent = "3P%";
-      var fg3PctCell = cells.insertCell(index);
-      fg3PctCell.textContent = statsMap.get("fg3Pct").toFixed(3);
+      var gsHeader = headers.insertCell(index);
+      gsHeader.textContent = "GS";
+      var gsCell = cells.insertCell(index);
+      gsCell.textContent = statsMap.get("gs").toFixed(0);
       index++;
 
-      var ftPctHeader = headers.insertCell(index);
-      ftPctHeader.textContent = "FT%";
-      var ftPctCell = cells.insertCell(index);
-      ftPctCell.textContent = statsMap.get("ftPct").toFixed(3);
+      var minHeader = headers.insertCell(index);
+      minHeader.textContent = "MIN";
+      var minCell = cells.insertCell(index);
+      minCell.textContent = statsMap.get("min").toFixed(1);
       index++;
     }
-  })
 
-  chrome.storage.local.get(["efgPctOn"], (result) => {
-    if (result.efgPctOn) {
-      var efgPctHeader = headers.insertCell(index);
-      efgPctHeader.textContent = "eFG%";
-      var efgPctCell = cells.insertCell(index);
-      efgPctCell.textContent = statsMap.get("efgPct").toFixed(3);
-      index++;
-    }
-  })
+    var ptsHeader = headers.insertCell(index);
+    ptsHeader.textContent = "PTS";
+    var ptsCell = cells.insertCell(index);
+    ptsCell.textContent = statsMap.get("pts").toFixed(1);
+    index++;
 
-  chrome.storage.local.get(["tsPctOn"], (result) => {
-    if (result.tsPctOn) {
-      var tsPctHeader = headers.insertCell(index);
-      tsPctHeader.textContent = "TS%";
-      var tsPctCell = cells.insertCell(index);
-      tsPctCell.textContent = statsMap.get("tsPct").toFixed(3);
-      index++;
-    }
+    var rebHeader = headers.insertCell(index);
+    rebHeader.textContent = "REB";
+    var rebCell = cells.insertCell(index);
+    rebCell.textContent = statsMap.get("reb").toFixed(1);
+    index++;
+
+    var astHeader = headers.insertCell(index);
+    astHeader.textContent = "AST";
+    var astCell = cells.insertCell(index);
+    astCell.textContent = statsMap.get("ast").toFixed(1);
+    index++;
+
+    var stlHeader = headers.insertCell(index);
+    stlHeader.textContent = "STL";
+    var stlCell = cells.insertCell(index);
+    stlCell.textContent = statsMap.get("stl").toFixed(1);
+    index++;
+
+    var blkHeader = headers.insertCell(index);
+    blkHeader.textContent = "BLK";
+    var blkCell = cells.insertCell(index);
+    blkCell.textContent = statsMap.get("blk").toFixed(1);
+    index++;
+
+    var tovHeader = headers.insertCell(index);
+    tovHeader.textContent = "TOV";
+    var tovCell = cells.insertCell(index);
+    tovCell.textContent = statsMap.get("tov").toFixed(1);
+    index++;
+
+    chrome.storage.local.get(["splitsOn"], (result) => {
+      if (result.splitsOn) {
+        var fgPctHeader = headers.insertCell(index);
+        fgPctHeader.textContent = "FG%";
+        var fgPctCell = cells.insertCell(index);
+        fgPctCell.textContent = statsMap.get("fgPct").toFixed(3);
+        index++;
+
+        var fg3PctHeader = headers.insertCell(index);
+        fg3PctHeader.textContent = "3P%";
+        var fg3PctCell = cells.insertCell(index);
+        fg3PctCell.textContent = statsMap.get("fg3Pct").toFixed(3);
+        index++;
+
+        var ftPctHeader = headers.insertCell(index);
+        ftPctHeader.textContent = "FT%";
+        var ftPctCell = cells.insertCell(index);
+        ftPctCell.textContent = statsMap.get("ftPct").toFixed(3);
+        index++;
+      }
+
+      chrome.storage.local.get(["efgPctOn"], (result) => {
+        if (result.efgPctOn) {
+          var efgPctHeader = headers.insertCell(index);
+          efgPctHeader.textContent = "eFG%";
+          var efgPctCell = cells.insertCell(index);
+          efgPctCell.textContent = statsMap.get("efgPct").toFixed(3);
+          index++;
+        }
+
+        chrome.storage.local.get(["tsPctOn"], (result) => {
+          if (result.tsPctOn) {
+            var tsPctHeader = headers.insertCell(index);
+            tsPctHeader.textContent = "TS%";
+            var tsPctCell = cells.insertCell(index);
+            tsPctCell.textContent = statsMap.get("tsPct").toFixed(3);
+            index++;
+          }
+        })
+      })
+    })
   })
 
   chrome.storage.local.get(["darkMode"], (result) => {
@@ -174,10 +196,11 @@ function renderOverlay(mouseX, mouseY, statsMap) {
       overlayDOM.style.borderColor = "#C0C0C0";
       statsTable.style.color = "#000000";
     }
+
+    overlayDOM.style.top = (mouseY - 30) + "px"; // hardcode estimate
+    overlayDOM.style.left = mouseX + "px";
+    overlayDOM.style.visibility = "visible";
   })
-  overlayDOM.style.top = (mouseY - 30) + "px"; // hardcode estimate
-  overlayDOM.style.left = mouseX + "px";
-  overlayDOM.style.visibility = "visible";
 }
 
 chrome.runtime.sendMessage({senderMessage: "getAllPlayersData"}, function(response) {

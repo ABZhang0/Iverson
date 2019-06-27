@@ -1,5 +1,6 @@
 var powerSwitch = document.getElementById("powerSwitch");
 var themeSelect = document.getElementById("themeSelect");
+var gameMinSelect = document.getElementById("gameMinSelect");
 var splitsSelect = document.getElementById("splitsSelect");
 var efgPctSelect = document.getElementById("efgPctSelect");
 var tsPctSelect = document.getElementById("tsPctSelect");
@@ -13,12 +14,15 @@ function findAndSetVersion() {
 window.addEventListener("load", calibrateSettings);
 
 function calibrateSettings() {
-  chrome.storage.local.get(["powerOn", "darkMode", "splitsOn", "efgPctOn", "tsPctOn"], (result) => {
+  chrome.storage.local.get(["powerOn", "darkMode", "gameMinOn", "splitsOn", "efgPctOn", "tsPctOn"], (result) => {
     powerSwitch.checked = result.powerOn;
     power(powerSwitch);
 
     themeSelect.checked = result.darkMode;
     switchTheme(themeSelect);
+
+    gameMinSelect.checked = result.gameMinOn;
+    switchGameMin(gameMinSelect);
 
     splitsSelect.checked = result.splitsOn;
     switchShootingSplits(splitsSelect);
@@ -56,6 +60,16 @@ function switchTheme(themeSelect) {
     document.getElementById("versionText").style.color = "#002B5C";
     document.getElementById("optionsTable").style.color = "#000000";
     chrome.storage.local.set({ darkMode: false });
+  }
+}
+
+gameMinSelect.addEventListener("click", () => { switchGameMin(gameMinSelect) });
+
+function switchGameMin(gameMinSelect) {
+  if (gameMinSelect.checked) {
+    chrome.storage.local.set({ gameMinOn: true });
+  } else {
+    chrome.storage.local.set({ gameMinOn: false });
   }
 }
 
