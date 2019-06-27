@@ -78,55 +78,89 @@ function tsCalc(pts, fga, fta) {
 
 function renderOverlay(mouseX, mouseY, statsMap) {
   statsTable.textContent = ""; // clear previous data
+  var index = 0;
 
   var headers = statsTable.insertRow(0);
   headers.setAttribute("class", "headers");
-  var ptsHeader = headers.insertCell(0);
-  ptsHeader.textContent = "PTS";
-  var rebHeader = headers.insertCell(1);
-  rebHeader.textContent = "REB";
-  var astHeader = headers.insertCell(2);
-  astHeader.textContent = "AST";
-  var stlHeader = headers.insertCell(3);
-  stlHeader.textContent = "STL";
-  var blkHeader = headers.insertCell(4);
-  blkHeader.textContent = "BLK";
-  var tovHeader = headers.insertCell(5);
-  tovHeader.textContent = "TOV";
-  var fgPctHeader = headers.insertCell(6);
-  fgPctHeader.textContent = "FG%";
-  var fg3PctHeader = headers.insertCell(7);
-  fg3PctHeader.textContent = "3P%";
-  var ftPctHeader = headers.insertCell(8);
-  ftPctHeader.textContent = "FT%";
-  var efgPctHeader = headers.insertCell(9);
-  efgPctHeader.textContent = "eFG%";
-  var tsPctHeader = headers.insertCell(10);
-  tsPctHeader.textContent = "TS%";
-
   var cells = statsTable.insertRow(1);
-  var ptsCell = cells.insertCell(0);
+
+  var ptsHeader = headers.insertCell(index);
+  ptsHeader.textContent = "PTS";
+  var ptsCell = cells.insertCell(index);
   ptsCell.textContent = statsMap.get("pts").toFixed(1);
-  var rebCell = cells.insertCell(1);
+  index++;
+
+  var rebHeader = headers.insertCell(index);
+  rebHeader.textContent = "REB";
+  var rebCell = cells.insertCell(index);
   rebCell.textContent = statsMap.get("reb").toFixed(1);
-  var astCell = cells.insertCell(2);
+  index++;
+
+  var astHeader = headers.insertCell(index);
+  astHeader.textContent = "AST";
+  var astCell = cells.insertCell(index);
   astCell.textContent = statsMap.get("ast").toFixed(1);
-  var stlCell = cells.insertCell(3);
+  index++;
+
+  var stlHeader = headers.insertCell(index);
+  stlHeader.textContent = "STL";
+  var stlCell = cells.insertCell(index);
   stlCell.textContent = statsMap.get("stl").toFixed(1);
-  var blkCell = cells.insertCell(4);
+  index++;
+
+  var blkHeader = headers.insertCell(index);
+  blkHeader.textContent = "BLK";
+  var blkCell = cells.insertCell(index);
   blkCell.textContent = statsMap.get("blk").toFixed(1);
-  var tovCell = cells.insertCell(5);
+  index++;
+
+  var tovHeader = headers.insertCell(index);
+  tovHeader.textContent = "TOV";
+  var tovCell = cells.insertCell(index);
   tovCell.textContent = statsMap.get("tov").toFixed(1);
-  var fgPctCell = cells.insertCell(6);
-  fgPctCell.textContent = statsMap.get("fgPct").toFixed(3);
-  var fg3PctCell = cells.insertCell(7);
-  fg3PctCell.textContent = statsMap.get("fg3Pct").toFixed(3);
-  var ftPctCell = cells.insertCell(8);
-  ftPctCell.textContent = statsMap.get("ftPct").toFixed(3);
-  var efgPctCell = cells.insertCell(9);
-  efgPctCell.textContent = statsMap.get("efgPct").toFixed(3);
-  var tsPctCell = cells.insertCell(10);
-  tsPctCell.textContent = statsMap.get("tsPct").toFixed(3);
+  index++;
+
+  chrome.storage.local.get(["splitsOn"], (result) => {
+    if (result.splitsOn) {
+      var fgPctHeader = headers.insertCell(index);
+      fgPctHeader.textContent = "FG%";
+      var fgPctCell = cells.insertCell(index);
+      fgPctCell.textContent = statsMap.get("fgPct").toFixed(3);
+      index++;
+
+      var fg3PctHeader = headers.insertCell(index);
+      fg3PctHeader.textContent = "3P%";
+      var fg3PctCell = cells.insertCell(index);
+      fg3PctCell.textContent = statsMap.get("fg3Pct").toFixed(3);
+      index++;
+
+      var ftPctHeader = headers.insertCell(index);
+      ftPctHeader.textContent = "FT%";
+      var ftPctCell = cells.insertCell(index);
+      ftPctCell.textContent = statsMap.get("ftPct").toFixed(3);
+      index++;
+    }
+  })
+
+  chrome.storage.local.get(["efgPctOn"], (result) => {
+    if (result.efgPctOn) {
+      var efgPctHeader = headers.insertCell(index);
+      efgPctHeader.textContent = "eFG%";
+      var efgPctCell = cells.insertCell(index);
+      efgPctCell.textContent = statsMap.get("efgPct").toFixed(3);
+      index++;
+    }
+  })
+
+  chrome.storage.local.get(["tsPctOn"], (result) => {
+    if (result.tsPctOn) {
+      var tsPctHeader = headers.insertCell(index);
+      tsPctHeader.textContent = "TS%";
+      var tsPctCell = cells.insertCell(index);
+      tsPctCell.textContent = statsMap.get("tsPct").toFixed(3);
+      index++;
+    }
+  })
 
   chrome.storage.local.get(["darkMode"], (result) => {
     if (result.darkMode) {
@@ -136,7 +170,7 @@ function renderOverlay(mouseX, mouseY, statsMap) {
       statsTable.style.color = "#FFFFFF";
     } else {
       overlayDOM.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
-      overlayDOM.style.boxShadow = "0px 0px 2px 2px #D0D0D0";
+      overlayDOM.style.boxShadow = "0px 0px 2px 2px #A0A0A0";
       overlayDOM.style.borderColor = "#C0C0C0";
       statsTable.style.color = "#000000";
     }
