@@ -14,28 +14,39 @@ function getSelectionText() {
   var text = "";
   if (window.getSelection) {
     text = window.getSelection().toString();
-  } else if (document.selection && document.selection.type != "Control") {
-    text = document.selection.createRange().text;
   }
   return text;
+}
+
+function getHighlightLocation() {
+  var location = null;
+  if (window.getSelection) {
+    location = window.getSelection().getRangeAt(0).getBoundingClientRect();
+  }
+  return location;
 }
 
 function playerLookup(e) {
   chrome.storage.local.get(["powerOn"], (result) => {
     if (result.powerOn) {
+      var highlightLocation = getHighlightLocation();
       var playerName = getSelectionText();
-      playerName = playerName.replace(/(^[:,\s]+)|([:,\s]+$)/g, ""); // trim commas/colons/whitespace
+      playerName = formatInput(playerName);
       if (playerName) {
         console.log(playerName);
         chrome.runtime.sendMessage({senderMessage: playerName}, function(response) {
           console.log(response.receiverMessage);
           if (response.receiverMessage === null) return;
           // html inject overlay stuff
-          renderOverlay(e.pageX, e.pageY, formatStats(response.receiverMessage));
+          renderOverlay(highlightLocation.x, (e.pageY - highlightLocation.height), formatStats(response.receiverMessage));
         });
       }
     }
   })
+}
+
+function formatInput(input) {
+  return input.replace(/(^[:,\s]+)|([:,\s]+$)/g, ""); // trim commas/colons/whitespace
 }
 
 function formatStats(stats) {
@@ -76,7 +87,7 @@ function tsCalc(pts, fga, fta) {
   return pts / (2 * (fga + (0.44 * fta)));
 }
 
-function renderOverlay(mouseX, mouseY, statsMap) {
+function renderOverlay(coordX, coordY, statsMap) {
   statsTable.textContent = ""; // clear previous data
   var index = 0;
 
@@ -197,8 +208,8 @@ function renderOverlay(mouseX, mouseY, statsMap) {
       statsTable.style.color = "#000000";
     }
 
-    overlayDOM.style.top = (mouseY - 30) + "px"; // hardcode estimate
-    overlayDOM.style.left = mouseX + "px";
+    overlayDOM.style.top = (coordY - overlayDOM.offsetHeight) + "px"; // hardcode estimate
+    overlayDOM.style.left = coordX + "px";
     overlayDOM.style.visibility = "visible";
   })
 }
