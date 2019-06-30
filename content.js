@@ -21,7 +21,19 @@ function getSelectionText() {
 function getHighlightLocation() {
   var location = null;
   if (window.getSelection) {
-    location = window.getSelection().getRangeAt(0).getBoundingClientRect();
+    var range = window.getSelection().getRangeAt(0);
+    var marker = document.createElement("span");
+    range.insertNode(marker);
+    
+    var obj = marker;
+    var left = 0;
+    var top = 0;
+    do {
+      left += obj.offsetLeft;
+      top += obj.offsetTop;
+    } while (obj = obj.offsetParent);
+    location = { x: left, y: top };
+    marker.parentNode.removeChild(marker);
   }
   return location;
 }
@@ -38,7 +50,9 @@ function playerLookup(e) {
           console.log(response.receiverMessage);
           if (response.receiverMessage === null) return;
           // html inject overlay stuff
-          renderOverlay(highlightLocation.x, (e.pageY - highlightLocation.height), formatStats(response.receiverMessage));
+          chrome.storage.local.get(["careerOn"], (result) => {
+            renderOverlay(highlightLocation.x, highlightLocation.y, formatStats(response.receiverMessage, result.careerOn));
+          })
         });
       }
     }
@@ -46,36 +60,63 @@ function playerLookup(e) {
 }
 
 function formatInput(input) {
-  return input.replace(/(^[:,\s]+)|([:,\s]+$)/g, ""); // trim commas/colons/whitespace
+  return input.replace(/(^[:.,\s]+)|([:.,\s]+$)/g, ""); // trim punctuation
 }
 
-function formatStats(stats) {
+function formatStats(stats, careerOn) {
   var statsMap = new Map();
-  statsMap.set("team", stats[4]);
-  statsMap.set("age", stats[5]);
-  statsMap.set("gp", stats[6]);
-  statsMap.set("gs", stats[7]);
-  statsMap.set("min", stats[8]);
-  statsMap.set("fgm", stats[9]);
-  statsMap.set("fga", stats[10]);
-  statsMap.set("fgPct", stats[11]);
-  statsMap.set("fg3m", stats[12]);
-  statsMap.set("fg3a", stats[13]);
-  statsMap.set("fg3Pct", stats[14]);
-  statsMap.set("ftm", stats[15]);
-  statsMap.set("fta", stats[16]);
-  statsMap.set("ftPct", stats[17]);
-  statsMap.set("oreb", stats[18]);
-  statsMap.set("dreb", stats[19]);
-  statsMap.set("reb", stats[20]);
-  statsMap.set("ast", stats[21]);
-  statsMap.set("stl", stats[22]);
-  statsMap.set("blk", stats[23]);
-  statsMap.set("tov", stats[24]);
-  statsMap.set("pf", stats[25]);
-  statsMap.set("pts", stats[26]);
+
+  if (careerOn) {
+    statsMap.set("team", stats[2]);
+    statsMap.set("gp", stats[3]);
+    statsMap.set("gs", stats[4]);
+    statsMap.set("min", stats[5]);
+    statsMap.set("fgm", stats[6]);
+    statsMap.set("fga", stats[7]);
+    statsMap.set("fgPct", stats[8]);
+    statsMap.set("fg3m", stats[9]);
+    statsMap.set("fg3a", stats[10]);
+    statsMap.set("fg3Pct", stats[11]);
+    statsMap.set("ftm", stats[12]);
+    statsMap.set("fta", stats[13]);
+    statsMap.set("ftPct", stats[14]);
+    statsMap.set("oreb", stats[15]);
+    statsMap.set("dreb", stats[16]);
+    statsMap.set("reb", stats[17]);
+    statsMap.set("ast", stats[18]);
+    statsMap.set("stl", stats[19]);
+    statsMap.set("blk", stats[20]);
+    statsMap.set("tov", stats[21]);
+    statsMap.set("pf", stats[22]);
+    statsMap.set("pts", stats[23]);
+  } else {
+    statsMap.set("team", stats[4]);
+    statsMap.set("age", stats[5]);
+    statsMap.set("gp", stats[6]);
+    statsMap.set("gs", stats[7]);
+    statsMap.set("min", stats[8]);
+    statsMap.set("fgm", stats[9]);
+    statsMap.set("fga", stats[10]);
+    statsMap.set("fgPct", stats[11]);
+    statsMap.set("fg3m", stats[12]);
+    statsMap.set("fg3a", stats[13]);
+    statsMap.set("fg3Pct", stats[14]);
+    statsMap.set("ftm", stats[15]);
+    statsMap.set("fta", stats[16]);
+    statsMap.set("ftPct", stats[17]);
+    statsMap.set("oreb", stats[18]);
+    statsMap.set("dreb", stats[19]);
+    statsMap.set("reb", stats[20]);
+    statsMap.set("ast", stats[21]);
+    statsMap.set("stl", stats[22]);
+    statsMap.set("blk", stats[23]);
+    statsMap.set("tov", stats[24]);
+    statsMap.set("pf", stats[25]);
+    statsMap.set("pts", stats[26]);
+  }
   statsMap.set("efgPct", efgCalc(statsMap.get("fgm"), statsMap.get("fg3m"), statsMap.get("fga")));
   statsMap.set("tsPct", tsCalc(statsMap.get("pts"), statsMap.get("fga"), statsMap.get("fta")));
+
   return statsMap;
 }
 
@@ -203,7 +244,7 @@ function renderOverlay(coordX, coordY, statsMap) {
       statsTable.style.color = "#FFFFFF";
     } else {
       overlayDOM.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
-      overlayDOM.style.boxShadow = "0px 0px 2px 2px #A0A0A0";
+      overlayDOM.style.boxShadow = "0px 0px 2px 2px #606060";
       overlayDOM.style.borderColor = "#C0C0C0";
       statsTable.style.color = "#000000";
     }

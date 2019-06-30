@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(
   function() {
     chrome.storage.local.set({ powerOn: true });
     chrome.storage.local.set({ darkMode: true });
+    chrome.storage.local.set({ careerOn: false });
     chrome.storage.local.set({ gameMinOn: false });
     chrome.storage.local.set({ splitsOn: false });
     chrome.storage.local.set({ efgPctOn: false });
@@ -56,16 +57,23 @@ function getPlayerStats(playerName, callback) {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var jsonResponse = JSON.parse(xhr.responseText);
-        var totalPlayerStats = jsonResponse.resultSets[0].rowSet; // index 0 for current regular season
         var playerStats;
-        totalPlayerStats.forEach((season) => { if (season[1] === "2018-19") playerStats = season })
-				if (playerStats) {
-          console.log(playerStats);
-				  console.log("individual player stats retrieved");
-        } else {
-          console.log("unable to retrieve player stats for selected season");
-        }
-				callback(playerStats);
+        chrome.storage.local.get(["careerOn"], (result) => {
+          if (result.careerOn) {
+            playerStats = jsonResponse.resultSets[1].rowSet[0]; // index 1 for career totals
+          } else {
+            var totalPlayerStats = jsonResponse.resultSets[0].rowSet; // index 0 for current regular season
+            totalPlayerStats.forEach((season) => { if (season[1] === "2018-19") playerStats = season })
+          }
+
+          if (playerStats) {
+            console.log(playerStats);
+            console.log("individual player stats retrieved");
+          } else {
+            console.log("unable to retrieve player stats for selected season");
+          }
+          callback(playerStats);
+        })
       }
     }
     xhr.open("GET", "https://stats.nba.com/stats/playerprofilev2/?PerMode=PerGame&PlayerID=" + playerID, true);

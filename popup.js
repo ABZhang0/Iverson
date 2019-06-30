@@ -1,5 +1,6 @@
 var powerSwitch = document.getElementById("powerSwitch");
 var themeSelect = document.getElementById("themeSelect");
+var careerSelect = document.getElementById("careerSelect");
 var gameMinSelect = document.getElementById("gameMinSelect");
 var splitsSelect = document.getElementById("splitsSelect");
 var efgPctSelect = document.getElementById("efgPctSelect");
@@ -14,12 +15,15 @@ function findAndSetVersion() {
 window.addEventListener("load", calibrateSettings);
 
 function calibrateSettings() {
-  chrome.storage.local.get(["powerOn", "darkMode", "gameMinOn", "splitsOn", "efgPctOn", "tsPctOn"], (result) => {
+  chrome.storage.local.get(["powerOn", "darkMode", "careerOn", "gameMinOn", "splitsOn", "efgPctOn", "tsPctOn"], (result) => {
     powerSwitch.checked = result.powerOn;
     power(powerSwitch);
 
     themeSelect.checked = result.darkMode;
     switchTheme(themeSelect);
+
+    careerSelect.checked = result.careerOn;
+    switchCareer(careerSelect);
 
     gameMinSelect.checked = result.gameMinOn;
     switchGameMin(gameMinSelect);
@@ -60,6 +64,16 @@ function switchTheme(themeSelect) {
     document.getElementById("versionText").style.color = "#002B5C";
     document.getElementById("optionsTable").style.color = "#000000";
     chrome.storage.local.set({ darkMode: false });
+  }
+}
+
+careerSelect.addEventListener("click", () => { switchCareer(careerSelect) });
+
+function switchCareer(careerSelect) {
+  if (careerSelect.checked) {
+    chrome.storage.local.set({ careerOn: true });
+  } else {
+    chrome.storage.local.set({ careerOn: false });
   }
 }
 
