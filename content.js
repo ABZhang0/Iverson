@@ -21,7 +21,19 @@ function getSelectionText() {
 function getHighlightLocation() {
   var location = null;
   if (window.getSelection) {
-    location = window.getSelection().getRangeAt(0).getBoundingClientRect();
+    var range = window.getSelection().getRangeAt(0);
+    var marker = document.createElement("span");
+    range.insertNode(marker);
+    
+    var obj = marker;
+    var left = 0;
+    var top = 0;
+    do {
+      left += obj.offsetLeft;
+      top += obj.offsetTop;
+    } while (obj = obj.offsetParent);
+    location = { x: left, y: top };
+    marker.parentNode.removeChild(marker);
   }
   return location;
 }
@@ -38,7 +50,7 @@ function playerLookup(e) {
           console.log(response.receiverMessage);
           if (response.receiverMessage === null) return;
           // html inject overlay stuff
-          renderOverlay(highlightLocation.x, (e.pageY - highlightLocation.height), formatStats(response.receiverMessage));
+          renderOverlay(highlightLocation.x, highlightLocation.y, formatStats(response.receiverMessage));
         });
       }
     }

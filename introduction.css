@@ -1,0 +1,30 @@
+@font-face {
+  font-family: Sixers;
+  src: url(/fonts/sixers.ttf);
+}
+
+.container {
+  user-select: none;
+  font-family: Arial, Helvetica, sans-serif;
+  border: solid 5px black;
+  position: fixed;
+  display: inline-block;
+  text-align: center;
+  margin: 250px 250px 250px 250px;
+  padding: 25px;
+}
+
+.question {
+  font-size: 48px;
+}
+
+.titleText {
+  font-family: Sixers;
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  color: #ED174C;
+}
+
+.blurb {
+  font-size: 18px;
+}
