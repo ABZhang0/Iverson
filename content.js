@@ -20,7 +20,7 @@ function getSelectionText() {
 
 function getHighlightLocation() {
   var location = null;
-  if (window.getSelection) {
+  if (window.getSelection && !(window.getSelection().isCollapsed)) { // fix for search bar highlight
     var range = window.getSelection().getRangeAt(0);
     var marker = document.createElement("span");
     range.insertNode(marker);
@@ -60,7 +60,8 @@ function playerLookup(e) {
 }
 
 function formatInput(input) {
-  return input.replace(/(^[:.,\s]+)|([:.,\s]+$)/g, ""); // trim punctuation
+  var trimmed = input.replace(/(^[:.,\s]*)|([:.,\s]*$)|(('s)?$)/g, ""); // trim punctuation
+  return trimmed.replace(/[’]/g, "'");
 }
 
 function formatStats(stats, careerOn) {
