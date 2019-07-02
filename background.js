@@ -26,6 +26,8 @@ chrome.runtime.onMessage.addListener(
 );
 
 function getAllPlayers(callback) {
+  var season = getSeason();
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() { 
     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -42,8 +44,19 @@ function getAllPlayers(callback) {
       });
     }
   };
-  xhr.open("GET", "https://stats.nba.com/stats/commonallplayers/?LeagueID=00&Season=2018-19&IsOnlyCurrentSeason=1", true); // true for async
+  xhr.open("GET", "https://stats.nba.com/stats/commonallplayers/?LeagueID=00&Season=" + season + "&IsOnlyCurrentSeason=1", true); // true for async
   xhr.send(null);
+}
+
+function getSeason() {
+  var now = new Date();
+  var seasonOpener = new Date(now.getFullYear() + '-10-24Z00:00')
+
+  if (now.getTime() > seasonOpener.getTime()) {
+    return now.getFullYear() + '-' + (now.getFullYear() + 1).toString().substring(2);
+  } else {
+    return (now.getFullYear() - 1) + '-' + now.getFullYear().toString().substring(2);
+  }
 }
 
 function getPlayerStats(playerName, callback) {

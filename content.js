@@ -38,7 +38,7 @@ function getHighlightLocation() {
   return location;
 }
 
-function playerLookup(e) {
+function playerLookup() {
   chrome.storage.local.get(["powerOn"], (result) => {
     if (result.powerOn) {
       var highlightLocation = getHighlightLocation();
@@ -261,5 +261,5 @@ chrome.runtime.sendMessage({senderMessage: "getAllPlayersData"}, function(respon
 });
 
 document.onload = setupOverlay();
-document.onmouseup = function(e) { playerLookup(e) };
+document.onmouseup = function() { playerLookup() };
 document.onmousedown = function() { overlayDOM.style.visibility = "hidden" };
