@@ -250,8 +250,17 @@ function renderOverlay(coordX, coordY, statsMap) {
       statsTable.style.color = "#000000";
     }
 
-    overlayDOM.style.top = (coordY - overlayDOM.offsetHeight) + "px"; // hardcode estimate
-    overlayDOM.style.left = coordX + "px";
+    if ((coordY - overlayDOM.offsetHeight) < 0) {
+      overlayDOM.style.top = overlayDOM.offsetHeight + "px";
+    } else {
+      overlayDOM.style.top = (coordY - overlayDOM.offsetHeight) + "px"; // hardcode estimate
+    }
+
+    if ((coordX + overlayDOM.offsetWidth) > window.innerWidth) {
+      overlayDOM.style.left = (window.innerWidth - overlayDOM.offsetWidth) + "px";
+    } else {
+      overlayDOM.style.left = coordX + "px";
+    }
     overlayDOM.style.visibility = "visible";
   })
 }

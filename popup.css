@@ -3,6 +3,11 @@
   src: url(/fonts/sixers.ttf);
 }
 
+@font-face {
+  font-family: TT Commons;
+  src: url(/fonts/ttcommons-regular.ttf);
+}
+
 html, body {
   -webkit-transition: 0.8s;
   transition: 0.8s;
@@ -98,14 +103,14 @@ input:checked + .master_slider::before {
 
 .options_table td {
   padding: 10px 0px 0px 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-family: TT Commons;
+  font-size: 16px;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 .switch {
-  margin: 2.5px 0px 0px 35px;
+  margin: 3px 0px 0px 35px;
   position: relative;
   display: inline-block;
   width: 24px;

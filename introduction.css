@@ -3,15 +3,43 @@
   src: url(/fonts/sixers.ttf);
 }
 
+@font-face {
+  font-family: TT Commons;
+  src: url(/fonts/ttcommons-regular.ttf);
+}
+
+html, body {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.background_image {
+  background-image: url(/images/iverson.jpg);
+  background-position: 100% 70%;
+  background-size: cover;
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  transform: scale(1.05);
+}
+
 .container {
   user-select: none;
-  font-family: Arial, Helvetica, sans-serif;
-  border: solid 5px black;
+  font-family: TT Commons;
+  border: solid 5px #006BB6;
   position: fixed;
   display: inline-block;
   text-align: center;
   margin: 250px 250px 250px 250px;
   padding: 25px;
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .question {
