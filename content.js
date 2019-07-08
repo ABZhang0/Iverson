@@ -61,7 +61,8 @@ function playerLookup() {
 
 function formatInput(input) {
   var trimmed = input.replace(/(^[:.,\s]*)|([:.,\s]*$)|(('s)?$)/g, ""); // trim punctuation
-  return trimmed.replace(/[’]/g, "'");
+  trimmed = trimmed.replace(/[’]/g, "'");
+  return trimmed.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // ignore accents/diacritics
 }
 
 function formatStats(stats, careerOn) {
