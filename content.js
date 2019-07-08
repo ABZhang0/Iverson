@@ -3,9 +3,9 @@ console.log("Chrome extension go!");
 var overlayDOM, statsTable;
 function setupOverlay() {
   overlayDOM = document.createElement("div");
-  overlayDOM.setAttribute("class", "selection_overlay");
+  overlayDOM.setAttribute("id", "selection_overlay");
   statsTable = document.createElement("table");
-  statsTable.setAttribute("class", "selection_table");
+  statsTable.setAttribute("id", "selection_table");
   overlayDOM.appendChild(statsTable);
   document.body.appendChild(overlayDOM);
 }
@@ -134,7 +134,7 @@ function renderOverlay(coordX, coordY, statsMap) {
   var index = 0;
 
   var headers = statsTable.insertRow(0);
-  headers.setAttribute("class", "headers");
+  headers.setAttribute("id", "headers");
   var cells = statsTable.insertRow(1);
 
   chrome.storage.local.get(["gameMinOn"], (result) => {
