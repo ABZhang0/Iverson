@@ -63,9 +63,9 @@ function getPlayerStats(playerName, callback) {
   chrome.storage.local.get(["activePlayers"], function(result) {
     var playerID = result.activePlayers[playerName];
     if (!playerID) {
-      console.log("invalid player name");
-      return;
+      callback("invalid player name");
     }
+
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
@@ -76,16 +76,14 @@ function getPlayerStats(playerName, callback) {
             playerStats = jsonResponse.resultSets[1].rowSet[0]; // index 1 for career totals
           } else {
             var totalPlayerStats = jsonResponse.resultSets[0].rowSet; // index 0 for current regular season
-            totalPlayerStats.forEach((season) => { if (season[1] === "2018-19") playerStats = season })
+            totalPlayerStats.forEach((season) => { if (season[1] === getSeason()) playerStats = season })
           }
 
           if (playerStats) {
-            console.log(playerStats);
-            console.log("individual player stats retrieved");
+            callback(playerStats);
           } else {
-            console.log("unable to retrieve player stats for selected season");
+            callback("unable to retrieve player stats for selected season");
           }
-          callback(playerStats);
         })
       }
     }

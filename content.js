@@ -48,7 +48,7 @@ function playerLookup() {
         console.log(playerName);
         chrome.runtime.sendMessage({senderMessage: playerName}, function(response) {
           console.log(response.receiverMessage);
-          if (response.receiverMessage === null) return;
+          if (!Array.isArray(response.receiverMessage)) return;
           // html inject overlay stuff
           chrome.storage.local.get(["careerOn"], (result) => {
             renderOverlay(highlightLocation.x, highlightLocation.y, formatStats(response.receiverMessage, result.careerOn));
@@ -73,7 +73,7 @@ function formatStats(stats, careerOn) {
     "reb", "ast", "stl", "blk", "tov", "pf", "pts",
   ];
   var index = (careerOn) ? 2 : 4;
-  
+
   apiStatCategories.forEach((category) => {
     if (category === "age") {
       if (!careerOn) statsMap.set(category, stats[index++]);
