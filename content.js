@@ -67,36 +67,20 @@ function formatInput(input) {
 
 function formatStats(stats, careerOn) {
   var statsMap = new Map();
-
-  if (careerOn) {
-    statsMap.set("team", stats[2]);
-    var index = 3;
-  } else {
-    statsMap.set("team", stats[4]);
-    statsMap.set("age", stats[5]);
-    var index = 6;
-  }
-  statsMap.set("gp", stats[index++]);
-  statsMap.set("gs", stats[index++]);
-  statsMap.set("min", stats[index++]);
-  statsMap.set("fgm", stats[index++]);
-  statsMap.set("fga", stats[index++]);
-  statsMap.set("fgPct", stats[index++]);
-  statsMap.set("3pm", stats[index++]);
-  statsMap.set("3pa", stats[index++]);
-  statsMap.set("3pPct", stats[index++]);
-  statsMap.set("ftm", stats[index++]);
-  statsMap.set("fta", stats[index++]);
-  statsMap.set("ftPct", stats[index++]);
-  statsMap.set("oreb", stats[index++]);
-  statsMap.set("dreb", stats[index++]);
-  statsMap.set("reb", stats[index++]);
-  statsMap.set("ast", stats[index++]);
-  statsMap.set("stl", stats[index++]);
-  statsMap.set("blk", stats[index++]);
-  statsMap.set("tov", stats[index++]);
-  statsMap.set("pf", stats[index++]);
-  statsMap.set("pts", stats[index++]);
+  var apiStatCategories = [
+    "team", "age", "gp", "gs", "min", "fgm", "fga", "fgPct",
+    "3pm", "3pa", "3pPct", "ftm", "fta", "ftPct", "oreb", "dreb",
+    "reb", "ast", "stl", "blk", "tov", "pf", "pts",
+  ];
+  var index = (careerOn) ? 2 : 4;
+  
+  apiStatCategories.forEach((category) => {
+    if (category === "age") {
+      if (!careerOn) statsMap.set(category, stats[index++]);
+    } else {
+      statsMap.set(category, stats[index++]);
+    }
+  })
   statsMap.set("efgPct", efgCalc(statsMap.get("fgm"), statsMap.get("3pm"), statsMap.get("fga")));
   statsMap.set("tsPct", tsCalc(statsMap.get("pts"), statsMap.get("fga"), statsMap.get("fta")));
 
