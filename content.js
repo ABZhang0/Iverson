@@ -62,7 +62,8 @@ function playerLookup() {
 function formatInput(input) {
   var trimmed = input.replace(/(^[:.,\s]*)|([:.,\s]*$)|(('s)?$)/g, ""); // trim punctuation
   trimmed = trimmed.replace(/[’]/g, "'");
-  return trimmed.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // ignore accents/diacritics
+  trimmed = trimmed.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // ignore accents/diacritics
+  return trimmed.toLowerCase().split(" ").map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(" "); // set capitalization
 }
 
 function formatStats(stats, careerOn) {
