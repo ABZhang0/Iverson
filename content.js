@@ -1,11 +1,11 @@
-console.log("Chrome extension go!");
+console.log("Iverson with the ball...");
 
 var overlayDOM, statsTable;
 function setupOverlay() {
   overlayDOM = document.createElement("div");
-  overlayDOM.setAttribute("id", "selection_overlay");
+  overlayDOM.setAttribute("id", "iverson_stats_selection_overlay");
   statsTable = document.createElement("table");
-  statsTable.setAttribute("id", "selection_table");
+  statsTable.setAttribute("id", "iverson_stats_selection_table");
   overlayDOM.appendChild(statsTable);
   document.body.appendChild(overlayDOM);
 }
